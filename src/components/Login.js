@@ -31,7 +31,7 @@ const styleSheet = createStyleSheet((theme) => ({
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { remember: false, login: "", pws: "", error: "" };
+    this.state = { remember: false, login: "", pws: "", errors: {} };
     this.onRemember = this.onRemember.bind(this);
     this.onLoginChange = this.onLoginChange.bind(this);
     this.onPwsChange = this.onPwsChange.bind(this);
@@ -57,20 +57,23 @@ class Login extends React.Component {
         }
       )
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
+
         this.props.setCurrentUser(this.state);
-        if (this.state.remember)
-          localStorage.setItem("userremember", JSON.stringify(this.state));
+        // if (this.state.remember)
+        // localStorage.setItem("userremember", JSON.stringify(this.state));
         this.props.history.push("/main");
       })
-      .catch(function (error) {
-        // this.state.error = "";
-        if (error.response.status == 404) {
-          //   console.log(this.state.error);
-          this.setState({ ...this.state, error: error.response.data.message });
+      .catch(
+        (err) => {
+          console.log(err.response.data, "THis");
+          this.setState({ errors: err.response.data.message });
         }
-        // console.log(error.response);
-      });
+
+        //This is the message come from the Node js.
+        // throw (backError = error.response.data.message);
+        // console.log(error.response.data.message);
+      );
 
     // TODO: authenticate user
     // IF AUTHENTICATED
