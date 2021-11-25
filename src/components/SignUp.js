@@ -29,7 +29,7 @@ const styleSheet = createStyleSheet((theme) => ({
   },
 }));
 
-class Login extends React.Component {
+class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,6 +91,7 @@ class Login extends React.Component {
         ) : (
           ""
         )}
+
         <div className={this.props.classes.flexGrow}>
           <Grid container>
             <Grid item xs={12}>
@@ -147,7 +148,7 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
+SignUp.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
@@ -171,4 +172,4 @@ const mapDispachToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispachToProps
-)(withStyles(styleSheet)(Login));
+)(withStyles(styleSheet)(SignUp));
