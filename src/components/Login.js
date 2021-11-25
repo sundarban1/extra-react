@@ -8,6 +8,7 @@ import Button from 'material-ui/Button';
 import Checkbox from 'material-ui/Checkbox';
 import { FormControlLabel } from 'material-ui/Form';
 import { connect } from "react-redux";
+import axios from 'axios';
 
 const styleSheet = createStyleSheet(theme => ({
     root: {
@@ -46,14 +47,26 @@ class Login extends React.Component {
         this.setState({ pws: event.target.value });
     }
     onLogin() {
-        // TODO: authenticate user
-        // IF AUTHENTICATED
-        if (this.state.login !== '' && this.state.pws !== '') {
-            this.props.setCurrentUser(this.state);
-            if (this.state.remember)
-                localStorage.setItem('userremember', JSON.stringify(this.state));
-            this.props.history.push('/main');
-        }
+
+      axios.post('/api/auths/login', {
+        'email': this.state.login,
+        'password': this.state.pws
+      })
+      .then(res => {
+        alert('here');
+                this.props.setCurrentUser(this.state);
+             if (this.state.remember)
+                 localStorage.setItem('userremember', JSON.stringify(this.state));
+             this.props.history.push('/main');
+      })
+      .catch(err=>{
+        alert('here');
+       console.log(err.response, 'error')
+        })
+
+        // if (this.state.login !== '' && this.state.pws !== '') {
+
+        // }
         // IF NOT
         // SHOW MSG
     }
