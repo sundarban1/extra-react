@@ -59,7 +59,7 @@ class Login extends React.Component {
       .then(function (response) {
         // console.log(response);
 
-        this.props.setCurrentUser(this.state);
+        // this.props.setCurrentUser(this.state);
         // if (this.state.remember)
         // localStorage.setItem("userremember", JSON.stringify(this.state));
         this.props.history.push("/main");
@@ -90,7 +90,7 @@ class Login extends React.Component {
   render() {
     return (
       <Paper className={this.props.classes.paper}>
-        {this.state.error ? <div>Error</div> : ""}
+        {this.state.errors ? <div>{this.state.errors}</div> : ""}
 
         <div className={this.props.classes.flexGrow}>
           <Grid container>
