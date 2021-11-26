@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles, createStyleSheet } from "material-ui/styles";
+// import Link from "react-router-dom";
 import Paper from "material-ui/Paper";
 import Grid from "material-ui/Grid";
 import TextField from "material-ui/TextField";
@@ -10,6 +11,8 @@ import { FormControlLabel } from "material-ui/Form";
 import { connect } from "react-redux";
 import axios from "axios";
 import isEmail from "validator/lib/isEmail";
+import DayPickerInput from "react-day-picker/DayPickerInput";
+import "react-day-picker/lib/style.css";
 
 const styleSheet = createStyleSheet((theme) => ({
   root: {
@@ -96,7 +99,7 @@ class Login extends React.Component {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="Login"
+                label="Email"
                 value={this.state.login}
                 onChange={this.onLoginChange}
               />
@@ -124,6 +127,16 @@ class Login extends React.Component {
                 ""
               )}
             </Grid>
+
+            <Grid item xs={12}>
+              {this.state.passworderror ? (
+                <span style={{ color: "#ae5856" }}>
+                  {this.state.passworderror}
+                </span>
+              ) : (
+                ""
+              )}
+            </Grid>
             <Grid container>
               <Grid item xs={8}>
                 <FormControlLabel
@@ -132,7 +145,20 @@ class Login extends React.Component {
                 />
               </Grid>
               <Grid item xs={4} className={this.props.classes.button}>
-                <Button raised color="primary" onClick={this.onLogin}>
+                <Button
+                  style={{
+                    width: "100%",
+                    marginLeft: "-280px",
+                    marginTop: "50px",
+                    padding: "10px",
+                    color: "white",
+                    display: "block",
+                    backgroundColor: "blue",
+                  }}
+                  raised
+                  color="primary"
+                  onClick={this.onLogin}
+                >
                   Login
                 </Button>
               </Grid>
@@ -140,7 +166,19 @@ class Login extends React.Component {
           </Grid>
         </div>
         <div>
-          <Button style={{ color: "#ae5856" }}>Create new Account</Button>
+          <Button
+            style={{
+              width: "70%",
+              marginLeft: "80px",
+              marginTop: "50px",
+              padding: "10px",
+              color: "white",
+              display: "block",
+              backgroundColor: "green",
+            }}
+          >
+            Create new Account
+          </Button>
         </div>
       </Paper>
     );

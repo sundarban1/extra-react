@@ -10,6 +10,9 @@ import { FormControlLabel } from "material-ui/Form";
 import { connect } from "react-redux";
 import axios from "axios";
 import isEmail from "validator/lib/isEmail";
+import DayPickerInput from "react-day-picker/DayPickerInput";
+import DayPicker from "react-day-picker";
+import "react-day-picker/lib/style.css";
 
 const styleSheet = createStyleSheet((theme) => ({
   root: {
@@ -33,49 +36,98 @@ class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      remember: false,
-      login: "",
-      pws: "",
+      firstname: "",
+      lastname: "",
+      phone: "",
+      address: "",
+      email: "",
+      dob: "",
+      password: "",
+      confirmpassword: "",
       error: "",
-      loginerror: "",
+      emailerror: "",
       passworderror: "",
+      fielderror: "",
     };
-    this.onRemember = this.onRemember.bind(this);
-    this.onLoginChange = this.onLoginChange.bind(this);
-    this.onPwsChange = this.onPwsChange.bind(this);
-    this.onLogin = this.onLogin.bind(this);
+    this.onFirstNameChange = this.onFirstNameChange.bind(this);
+    this.onLastNameChange = this.onLastNameChange.bind(this);
+    this.onDateOfBirthChange = this.onDateOfBirthChange.bind(this);
+    this.onPhoneChange = this.onPhoneChange.bind(this);
+    this.onAddressChange = this.onAddressChange.bind(this);
+    this.onEmailChange = this.onEmailChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.onConfirmPasswordChange = this.onConfirmPasswordChange.bind(this);
+    this.onSignUp = this.onSignUp.bind(this);
   }
-  onRemember(event) {
-    this.setState({ remember: !this.state.remember });
+
+  onFirstNameChange(event) {
+    this.setState({ firstname: event.target.value });
   }
-  onLoginChange(event) {
-    this.setState({ login: event.target.value });
+  onLastNameChange(event) {
+    this.setState({ lastname: event.target.value });
   }
-  onPwsChange(event) {
-    this.setState({ pws: event.target.value });
+  onPhoneChange(event) {
+    this.setState({ phone: event.target.value });
   }
-  onLogin() {
-    if (!isEmail(this.state.login)) {
-      this.setState({ loginerror: "Email is not Valid" });
-    } else if (this.state.pws == "") {
-      this.setState({ passworderror: "password cannot be empty" });
+  onDateOfBirthChange(day, { event }) {
+    this.setState({ dob: event ? undefined : day });
+  }
+
+  onAddressChange(event) {
+    this.setState({ address: event.target.value });
+  }
+  onEmailChange(event) {
+    this.setState({ email: event.target.value });
+  }
+  onPasswordChange(event) {
+    this.setState({ password: event.target.value });
+  }
+  onConfirmPasswordChange(event) {
+    this.setState({ confirmpassword: event.target.value });
+  }
+
+  onSignUp() {
+    if (
+      this.state.email == "" ||
+      this.state.password == "" ||
+      this.state.confirmpassword == "" ||
+      this.state.firstname == "" ||
+      this.state.lastname == "" ||
+      this.state.address == "" ||
+      this.state.dob == "" ||
+      this.state.phone == ""
+    ) {
+      this.setState({ fielderror: "Field cannot be empty" });
+    } else if (this.state.password != this.state.confirmpassword) {
+      this.setState({ passworderror: "Password needs to be same" });
+    } else if (!isEmail(this.state.email)) {
+      this.setState({ emailerror: "Email is not Valid" });
     } else {
       axios
-        .post("/api/auths/login", {
-          email: this.state.login,
-          password: this.state.pws,
+        .post("/api/users", {
+          first_name: this.state.firstname,
+          last_name: this.state.lastname,
+          phone: this.state.phone,
+          address: this.state.address,
+          dob: this.state.dob,
+          email: this.state.email,
+          password: this.state.password,
         })
         .then((res) => {
+          console.log(res);
+
           this.props.setCurrentUser(this.state);
-          if (this.state.remember)
-            localStorage.setItem("userremember", JSON.stringify(this.state));
+          // if (this.state.remember)
+          //   localStorage.setItem("userremember", JSON.stringify(this.state));
           this.props.history.push("/main");
         })
         .catch((err) => {
+          console.log(err.response.data.message);
           this.setState({ error: err.response.data.message });
         });
     }
   }
+
   componentDidMount() {
     let userRemembered = JSON.parse(localStorage.getItem("userremember"));
     if (userRemembered) {
@@ -91,32 +143,91 @@ class SignUp extends React.Component {
         ) : (
           ""
         )}
+        <h1> SignUp</h1>
 
         <div className={this.props.classes.flexGrow}>
           <Grid container>
             <Grid item xs={12}>
+              <h5 className="field__name">First Name</h5>
               <TextField
+                className="text__field"
                 fullWidth
-                label="Login"
-                value={this.state.login}
-                onChange={this.onLoginChange}
+                value={this.state.firstname}
+                onChange={this.onFirstNameChange}
               />
-              {this.state.loginerror ? (
+            </Grid>
+
+            <Grid item xs={12}>
+              <h5 className="field__name">Last Name</h5>
+              <TextField
+                className="text__field"
+                fullWidth
+                value={this.state.lastname}
+                onChange={this.onLastNameChange}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <h5 className="field__name">Email</h5>
+              <TextField
+                className="text__field"
+                fullWidth
+                value={this.state.email}
+                onChange={this.onEmailChange}
+              />
+              {this.state.emailerror ? (
                 <span style={{ color: "#ae5856" }}>
-                  {this.state.loginerror}
+                  {this.state.emailerror}
                 </span>
               ) : (
                 ""
               )}
             </Grid>
             <Grid item xs={12}>
+              <h5 className="field__name">Phone</h5>
               <TextField
+                className="text__field"
                 fullWidth
-                type="password"
-                label="Password"
-                value={this.state.pws}
-                onChange={this.onPwsChange}
+                value={this.state.phone}
+                onChange={this.onPhoneChange}
               />
+            </Grid>
+            <Grid item xs={12}>
+              <h5 className="field__name">Address</h5>
+              <TextField
+                className="text__field"
+                fullWidth
+                value={this.state.address}
+                onChange={this.onAddressChange}
+              />
+            </Grid>
+            <Grid class="column" style={{ padding: "20px" }}>
+              Date of Birth
+            </Grid>
+            <Grid class="column">
+              <DayPicker
+                selectedDays={this.state.dob}
+                onDayClick={this.onDateOfBirthChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <h5 className="field__name">Password</h5>
+              <TextField
+                className="text__field"
+                fullWidth
+                value={this.state.password}
+                onChange={this.onPasswordChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <h5 className="field__name">Confirm Password</h5>
+              <TextField
+                className="text__field"
+                fullWidth
+                value={this.state.confirmpassword}
+                onChange={this.onConfirmPasswordChange}
+              />
+
               {this.state.passworderror ? (
                 <span style={{ color: "#ae5856" }}>
                   {this.state.passworderror}
@@ -125,23 +236,45 @@ class SignUp extends React.Component {
                 ""
               )}
             </Grid>
+
+            <div
+              style={{
+                textAlign: "center",
+                display: "flex",
+                marginLeft: "250px",
+                marginBottom: "-200px",
+              }}
+            >
+              {this.state.fielderror ? (
+                <span style={{ color: "#ae5856" }}>
+                  {this.state.fielderror}
+                </span>
+              ) : (
+                ""
+              )}
+            </div>
+
             <Grid container>
-              <Grid item xs={8}>
-                <FormControlLabel
-                  control={<Checkbox onChange={this.onRemember} />}
-                  label="Remember Password"
-                />
-              </Grid>
               <Grid item xs={4} className={this.props.classes.button}>
-                <Button raised color="primary" onClick={this.onLogin}>
-                  Login
+                <Button
+                  style={{
+                    width: "200%",
+                    marginLeft: "120px",
+                    marginTop: "50px",
+                    padding: "0px",
+                    color: "white",
+                    display: "block",
+                    backgroundColor: "green",
+                  }}
+                  raised
+                  color="primary"
+                  onClick={this.onSignUp}
+                >
+                  Signup
                 </Button>
               </Grid>
             </Grid>
           </Grid>
-        </div>
-        <div>
-          <Button style={{ color: "#ae5856" }}>Create new Account</Button>
         </div>
       </Paper>
     );
