@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles, createStyleSheet } from "material-ui/styles";
-// import Link from "react-router-dom";
+import { Link } from "react-router-dom";
 import Paper from "material-ui/Paper";
 import Grid from "material-ui/Grid";
 import TextField from "material-ui/TextField";
@@ -166,19 +166,21 @@ class Login extends React.Component {
           </Grid>
         </div>
         <div>
-          <Button
-            style={{
-              width: "70%",
-              marginLeft: "80px",
-              marginTop: "50px",
-              padding: "10px",
-              color: "white",
-              display: "block",
-              backgroundColor: "green",
-            }}
-          >
-            Create new Account
-          </Button>
+          <Link to="/signup">
+            <Button
+              style={{
+                width: "70%",
+                marginLeft: "80px",
+                marginTop: "50px",
+                padding: "10px",
+                color: "white",
+                display: "block",
+                backgroundColor: "green",
+              }}
+            >
+              Create new Account
+            </Button>
+          </Link>
         </div>
       </Paper>
     );
