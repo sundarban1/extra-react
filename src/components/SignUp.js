@@ -48,6 +48,7 @@ class SignUp extends React.Component {
       emailerror: "",
       passworderror: "",
       fielderror: "",
+      successfulsignup: "",
     };
     this.onFirstNameChange = this.onFirstNameChange.bind(this);
     this.onLastNameChange = this.onLastNameChange.bind(this);
@@ -114,19 +115,29 @@ class SignUp extends React.Component {
           password: this.state.password,
         })
         .then((res) => {
-          console.log(res);
-
-          this.props.setCurrentUser(this.state);
+          this.setState({
+            error: "",
+            successfulsignup:
+              "Your account is succesfully created, please check your email to varify your account",
+          });
+          // console.log(res);
+          // this.props.setCurrentUser(this.state);
           // if (this.state.remember)
           //   localStorage.setItem("userremember", JSON.stringify(this.state));
-          this.props.history.push("/main");
+          // this.props.history.push("/main");
         })
         .catch((err) => {
           let statusCode = err.response.status;
           if (statusCode === 400) {
-            this.setState({ error: err.response.data.details[0].message });
+            this.setState({
+              error: err.response.data.details[0].message,
+              successfulsignup: "",
+            });
           } else if (statusCode === 422) {
-            this.setState({ error: err.response.data.error });
+            this.setState({
+              error: err.response.data.error,
+              successfulsignup: "",
+            });
           }
         });
     }
@@ -147,6 +158,10 @@ class SignUp extends React.Component {
         ) : (
           ""
         )}
+        {this.state.successfulsignup && (
+          <span style={{ color: "green" }}>{this.state.successfulsignup}</span>
+        )}
+
         <h1> SignUp</h1>
 
         <div className={this.props.classes.flexGrow}>
