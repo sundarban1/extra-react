@@ -122,8 +122,12 @@ class SignUp extends React.Component {
           this.props.history.push("/main");
         })
         .catch((err) => {
-          console.log(err.response.data.message);
-          this.setState({ error: err.response.data.message });
+          let statusCode = err.response.status;
+          if (statusCode === 400) {
+            this.setState({ error: err.response.data.details[0].message });
+          } else if (statusCode === 422) {
+            this.setState({ error: err.response.data.error });
+          }
         });
     }
   }
