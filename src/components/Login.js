@@ -69,6 +69,7 @@ class Login extends React.Component {
           password: this.state.pws,
         })
         .then((res) => {
+          localStorage.setItem("token", res.data.token);
           this.props.setCurrentUser(this.state);
           if (this.state.remember)
             localStorage.setItem("userremember", JSON.stringify(this.state));

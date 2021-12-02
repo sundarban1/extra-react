@@ -12,6 +12,13 @@ const userReducer = (state = initialState.user, action) => {
       localStorage.removeItem("userremember");
       return nstate;
     }
+    case "GetCurrentUser": {
+      alert("hello");
+      let nstate = ih(state, { $set: initialState.user });
+      localStorage.removeItem("userremember");
+      return nstate;
+    }
+
     default: {
       return initialState.user;
     }
