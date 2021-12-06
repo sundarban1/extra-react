@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import "./index.css";
 import SignUpPage from "./pages/SignUpPage";
+import UpdatePage from "./pages/UpdatePage";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -16,6 +17,7 @@ ReactDOM.render(
         <Route exact path="/" component={LoginPage} />
         <Route path="/main" component={MainPage} />
         <Route path="/signup" component={SignUpPage} />
+        <Route path="/update" component={UpdatePage} />
       </div>
     </BrowserRouter>
   </Provider>,

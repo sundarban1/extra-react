@@ -11,7 +11,7 @@ import { FormControlLabel } from "material-ui/Form";
 import { connect } from "react-redux";
 import axios from "axios";
 import isEmail from "validator/lib/isEmail";
-import DayPickerInput from "react-day-picker/DayPickerInput";
+
 import "react-day-picker/lib/style.css";
 
 const styleSheet = createStyleSheet((theme) => ({

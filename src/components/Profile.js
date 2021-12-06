@@ -1,10 +1,10 @@
-import axios from "axios";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withStyles, createStyleSheet } from "material-ui/styles";
+import { withStyles } from "material-ui/styles";
 import { connect } from "react-redux";
 import { styleSheet } from "material-ui/Paper/Paper";
 import api from "../api";
+import { Link } from "react-router-dom";
 
 class Profile extends Component {
   constructor(props) {
@@ -23,13 +23,13 @@ class Profile extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ marginInline: "50px", padding: "5px" }}>
         <table>
           <tr
             style={{
               display: "flex",
               flexDirection: "column",
-              justifyContent: "space-around",
+              justifyContent: "space-between",
               flexGrow: "2",
               width: "200%",
               margin: "0px",
@@ -38,12 +38,14 @@ class Profile extends Component {
             <tr
               style={{
                 display: "flex",
+
                 flexDirection: "row",
                 alignItems: "center",
               }}
             >
               <th>First Name: </th>
               <p style={{ marginLeft: "25px" }}>{this.state.data.first_name}</p>
+              {/* <EditIcon /> */}
             </tr>
             <hr />
 
@@ -171,6 +173,7 @@ class Profile extends Component {
             >
               <th style={{ marginRight: "15px" }}>Photo: </th>
               <img
+                alt=""
                 src={this.state.data.image_path}
                 width="150"
                 height="150"
@@ -179,6 +182,23 @@ class Profile extends Component {
             </tr>
           </tr>
         </table>
+        <div>
+          <Link to="/update">
+            <button
+              style={{
+                backgroundColor: "green",
+                color: "white",
+                marginLeft: "30px",
+                marginTop: "20px",
+                marginBottom: "50px",
+                width: "20%",
+                height: "30px",
+              }}
+            >
+              Update your Profile
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }
