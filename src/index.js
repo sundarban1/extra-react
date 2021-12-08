@@ -10,6 +10,9 @@ import "./index.css";
 import SignUpPage from "./pages/SignUpPage";
 import UpdatePage from "./pages/UpdatePage";
 
+import HistoryPage from "./pages/HistoryPage";
+import TransactionsPage from "./pages/TransactionsPage";
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
@@ -18,6 +21,8 @@ ReactDOM.render(
         <Route path="/main" component={MainPage} />
         <Route path="/signup" component={SignUpPage} />
         <Route path="/update" component={UpdatePage} />
+        <Route path="/main/transactions" component={TransactionsPage} />
+        <Route path="/main/history" component={HistoryPage} />
       </div>
     </BrowserRouter>
   </Provider>,

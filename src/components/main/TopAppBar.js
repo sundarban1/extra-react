@@ -1,20 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
-import Menu, { MenuItem } from 'material-ui/Menu';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles, createStyleSheet } from "material-ui/styles";
+import AppBar from "material-ui/AppBar";
+import Toolbar from "material-ui/Toolbar";
+import Typography from "material-ui/Typography";
+import Button from "material-ui/Button";
+import IconButton from "material-ui/IconButton";
+import MenuIcon from "material-ui-icons/Menu";
+import Menu, { MenuItem } from "material-ui/Menu";
 import { connect } from "react-redux";
-
 
 const styleSheet = createStyleSheet({
   root: {
     marginTop: 0,
-    width: '100%',
+    width: "100%",
   },
   flex: {
     flex: 1,
@@ -35,46 +34,58 @@ class TopAppBar extends React.Component {
   }
   handleLogout() {
     this.props.removeCurrentUser();
-    this.props.history.push('/');
+    this.props.history.push("/");
   }
-  handleTopMenu = event => {
+  handleTopMenu = (event) => {
     this.setState({ userMenuopen: true, anchorEl: event.currentTarget });
-  }
+  };
   handleRequestClose = () => {
     this.setState({ userMenuopen: false });
-  }
-  handleToggleLeftDawerMenu = ()=>{
+  };
+  handleToggleLeftDawerMenu = () => {
     this.props.toggleLeftDawerMenu(true);
-  }
+  };
   render() {
-    return (<div className={this.props.classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton color="contrast" aria-label="Menu" onClick={this.handleToggleLeftDawerMenu}>
-            <MenuIcon />
-          </IconButton>
-          <Typography type="title" color="inherit" className={this.props.classes.flex}>
-            Application Title
-          </Typography>
-          <Button
-            color="contrast"
-            aria-owns={this.state.userMenuopen ? 'simple-menu' : null}
-            aria-haspopup="true"
-            onClick={this.handleTopMenu}>
-            olá, {this.props.currentUser.login}
-          </Button>
-          <Menu
-            id="simple-menu"
-            anchorEl={this.state.anchorEl}
-            open={this.state.userMenuopen}
-            onRequestClose={this.handleRequestClose}>
-            <MenuItem onClick={this.handleRequestClose}>Profile</MenuItem>
-            <MenuItem onClick={this.handleRequestClose}>My account</MenuItem>
-            <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
-          </Menu>
-        </Toolbar>
-      </AppBar>
-    </div>)
+    return (
+      <div className={this.props.classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              color="contrast"
+              aria-label="Menu"
+              onClick={this.handleToggleLeftDawerMenu}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              type="title"
+              color="inherit"
+              className={this.props.classes.flex}
+            >
+              Mome App
+            </Typography>
+            <Button
+              color="contrast"
+              aria-owns={this.state.userMenuopen ? "simple-menu" : null}
+              aria-haspopup="true"
+              onClick={this.handleTopMenu}
+            >
+              olá, {this.props.currentUser.login}
+            </Button>
+            <Menu
+              id="simple-menu"
+              anchorEl={this.state.anchorEl}
+              open={this.state.userMenuopen}
+              onRequestClose={this.handleRequestClose}
+            >
+              <MenuItem onClick={this.handleRequestClose}>Profile</MenuItem>
+              <MenuItem onClick={this.handleRequestClose}>My account</MenuItem>
+              <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+            </Menu>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
   }
 }
 
@@ -85,25 +96,28 @@ TopAppBar.propTypes = {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.user,
-    structureUI: state.structureUI
-  }
-}
+    structureUI: state.structureUI,
+  };
+};
 
 const mapDispachToProps = (dispatch) => {
   return {
     removeCurrentUser: () => {
       dispatch({
         type: "RemoveCurrentUser",
-        payload: null
-      })
+        payload: null,
+      });
     },
-    toggleLeftDawerMenu: (value=false) =>{
+    toggleLeftDawerMenu: (value = false) => {
       dispatch({
         type: "ToggleLeftDawerMenu",
-        payload: value
-      })
-    }
-  }
-}
+        payload: value,
+      });
+    },
+  };
+};
 
-export default connect(mapStateToProps, mapDispachToProps)(withStyles(styleSheet)(TopAppBar));
+export default connect(
+  mapStateToProps,
+  mapDispachToProps
+)(withStyles(styleSheet)(TopAppBar));

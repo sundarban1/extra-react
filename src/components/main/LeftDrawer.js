@@ -4,12 +4,6 @@ import { withStyles, createStyleSheet } from "material-ui/styles";
 import Drawer from "material-ui/Drawer";
 import List, { ListItem } from "material-ui/List";
 import Divider from "material-ui/Divider";
-// import { ListItemIcon, ListItemText } from 'material-ui/List';
-// import DraftsIcon from 'material-ui-icons/Drafts';
-// import SendIcon from 'material-ui-icons/Send';
-// import MailIcon from 'material-ui-icons/Mail';
-// import DeleteIcon from 'material-ui-icons/Delete';
-// import ReportIcon from 'material-ui-icons/Report';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -34,46 +28,11 @@ class LeftDrawer extends Component {
     const mailFolderListItems = (
       <div>
         <ListItem button>
-          <Link to="/main/pg2">PAGE 2</Link>
+          <Link to="/main/transactions">Transactions</Link>
         </ListItem>
         <ListItem button>
-          <Link to="/main/pg3">PAGE 3</Link>
+          <Link to="/main/history">History</Link>
         </ListItem>
-        {/* <ListItem button>
-          <ListItemIcon>
-            <SendIcon />
-          </ListItemIcon>
-          <ListItemText primary="Send mail" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <DraftsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Drafts" />
-        </ListItem> */}
-      </div>
-    );
-
-    const otherMailFolderListItems = (
-      <div>
-        {/* <ListItem button>
-          <ListItemIcon>
-            <MailIcon />
-          </ListItemIcon>
-          <ListItemText primary="All mail" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <DeleteIcon />
-          </ListItemIcon>
-          <ListItemText primary="Trash" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <ReportIcon />
-          </ListItemIcon>
-          <ListItemText primary="Spam" />
-        </ListItem> */}
       </div>
     );
 
@@ -83,9 +42,7 @@ class LeftDrawer extends Component {
           {mailFolderListItems}
         </List>
         <Divider />
-        <List className={classes.list} disablePadding>
-          {otherMailFolderListItems}
-        </List>
+        <List className={classes.list} disablePadding></List>
       </div>
     );
 

@@ -45,7 +45,7 @@ class Update extends React.Component {
       emailerror: "",
       passworderror: "",
       fielderror: "",
-      successfulsignup: "",
+      successfulupdate: "",
     };
     this.onFirstNameChange = this.onFirstNameChange.bind(this);
     this.onLastNameChange = this.onLastNameChange.bind(this);
@@ -55,7 +55,7 @@ class Update extends React.Component {
     this.onEmailChange = this.onEmailChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
     this.onConfirmPasswordChange = this.onConfirmPasswordChange.bind(this);
-    this.onSignUp = this.onSignUp.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
   }
 
   onFirstNameChange(event) {
@@ -84,56 +84,47 @@ class Update extends React.Component {
     this.setState({ confirmpassword: event.target.value });
   }
 
-  onSignUp() {
-    if (
-      this.state.email == "" ||
-      this.state.password == "" ||
-      this.state.confirmpassword == "" ||
-      this.state.firstname == "" ||
-      this.state.lastname == "" ||
-      this.state.address == "" ||
-      this.state.dob == "" ||
-      this.state.phone == ""
-    ) {
-      this.setState({ fielderror: "Field cannot be empty" });
-    } else if (this.state.password != this.state.confirmpassword) {
-      this.setState({ passworderror: "Password needs to be same" });
-    } else if (!isEmail(this.state.email)) {
+  onUpdate() {
+    if (!isEmail(this.state.email)) {
       this.setState({ emailerror: "Email is not Valid" });
     } else {
       axios
-        .post("/api/users", {
-          first_name: this.state.firstname,
-          last_name: this.state.lastname,
-          phone: this.state.phone,
-          address: this.state.address,
-          dob: this.state.dob,
-          email: this.state.email,
-          password: this.state.password,
-        })
+        .put(
+          "/api/users/1",
+          {
+            first_name: this.state.firstname,
+            last_name: this.state.lastname,
+            phone: this.state.phone,
+            address: this.state.address,
+            dob: this.state.dob,
+            email: this.state.email,
+            password: this.state.password,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
         .then((res) => {
+          console.log("ramesh", res);
           this.setState({
             error: "",
-            successfulsignup:
-              "Your account is succesfully created, please check your email to varify your account",
+            successfulupdate: "Your profile is successfully Updated",
           });
-          // console.log(res);
-          // this.props.setCurrentUser(this.state);
-          // if (this.state.remember)
-          //   localStorage.setItem("userremember", JSON.stringify(this.state));
-          // this.props.history.push("/main");
         })
         .catch((err) => {
+          console.log("ramesh", err);
           let statusCode = err.response.status;
           if (statusCode === 400) {
             this.setState({
               error: err.response.data.details[0].message,
-              successfulsignup: "",
+              successfulupdate: "",
             });
           } else if (statusCode === 422) {
             this.setState({
               error: err.response.data.error,
-              successfulsignup: "",
+              successfulupdate: " ",
             });
           }
         });
@@ -155,8 +146,8 @@ class Update extends React.Component {
         ) : (
           ""
         )}
-        {this.state.successfulsignup && (
-          <span style={{ color: "green" }}>{this.state.successfulsignup}</span>
+        {this.state.successfulupdate && (
+          <span style={{ color: "green" }}>{this.state.successfulupdate}</span>
         )}
 
         <h1 style={{ color: "green" }}> Update Your Profile</h1>
@@ -284,9 +275,9 @@ class Update extends React.Component {
                   }}
                   raised
                   color="primary"
-                  onClick={this.onSignUp}
+                  onClick={this.onUpdate}
                 >
-                  Signup
+                  Update Your Profile
                 </Button>
               </Grid>
             </Grid>

@@ -16,7 +16,7 @@ class Profile extends Component {
 
   componentDidMount() {
     api.user.getUser().then((res) => {
-      console.log(res.data.data);
+      // console.log(res.data.data);
       this.setState({ data: res.data.data });
     });
   }
@@ -45,7 +45,6 @@ class Profile extends Component {
             >
               <th>First Name: </th>
               <p style={{ marginLeft: "25px" }}>{this.state.data.first_name}</p>
-              {/* <EditIcon /> */}
             </tr>
             <hr />
 
