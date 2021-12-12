@@ -6,8 +6,8 @@ export default {
             axios.post('/api/auths/login', {'email': credentials.email,'password':credentials.password}).then(res => res.data),
         signup: user =>
             axios.post('/api/users', {
-                first_name: user.firstname,
-                last_name: user.lastname,
+                first_name: user.first_name,
+                last_name: user.last_name,
                 phone: user.phone,
                 address: user.address,
                 dob: user.dob,

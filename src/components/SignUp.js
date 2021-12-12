@@ -102,7 +102,6 @@ class SignUp extends React.Component {
     } else if (!isEmail(this.state.email)) {
       this.setState({ emailerror: "Email is not Valid" });
     } else {
-      
      this.props.submit({
       first_name: this.state.firstname,
       last_name: this.state.lastname,

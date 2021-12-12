@@ -14,12 +14,12 @@ class Profile extends Component {
     };
   }
 
-  componentDidMount() {
-    api.user.getUser().then((res) => {
-      console.log(res.data.data);
-      this.setState({ data: res.data.data });
-    });
-  }
+  // componentDidMount() {
+  //   api.user.getUser().then((res) => {
+  //     console.log(res.data.data);
+  //     this.setState({ data: res.data.data });
+  //   });
+  // }
 
   render() {
     return (
