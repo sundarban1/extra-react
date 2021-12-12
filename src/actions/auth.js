@@ -13,7 +13,6 @@ export const userLoggedOut = () => ({
 export const login = credentials => (dispatch) =>
     api.user.login(credentials).then(
         user => {
-            console.log(user,'df')
            // localStorage.bookwormJWT = user.token;
             dispatch(userLoggedIn(user))
         });  //thunk action --> api request with data and dispatch redux action
