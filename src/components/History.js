@@ -9,12 +9,14 @@ class History extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      data: {},
     };
+    // console.log(this.state.data, "ramesh");
   }
 
   componentDidMount() {
     api.user.getHistory().then((res) => {
+      console.log(res.data.data);
       this.setState({ data: res.data.data });
     });
   }
@@ -22,6 +24,12 @@ class History extends Component {
   render() {
     return (
       <div style={{ marginInline: "50px", padding: "5px" }}>
+        <h1 style={{ textAlign: "center", width: "100%", marginLeft: "300px" }}>
+          Transaction History
+        </h1>
+
+        {/* <div key={this.state.item}>{this.state.data.map((item) => item)}</div> */}
+
         <table>
           <tr
             style={{
@@ -36,23 +44,40 @@ class History extends Component {
             <tr
               style={{
                 display: "flex",
-
+                flexDirection: "column",
+                alignItems: "center",
+                borderRight: "block",
+              }}
+            >
+              <th>Date </th>
+              <p>{Date().toLocaleString()}</p>
+              <p>{Date().toLocaleString()}</p>
+              <p>{Date().toLocaleString()}</p>
+              <p>{Date().toLocaleString()}</p>
+              <p>{Date().toLocaleString()}</p>
+              <p>{Date().toLocaleString()}</p>
+              <p>{Date().toLocaleString()}</p>
+              <p>{Date().toLocaleString()}</p>
+            </tr>
+            <hr />
+            <tr
+              style={{
+                display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
               }}
             >
               <th>Sent Amount </th>
-              <p>
-                <p style={{ marginLeft: "25px" }}>
-                  {this.state.data.map(function (item) {
-                    <ul>
-                      <li>
-                        <p>{item.request_amount}</p>;
-                      </li>
-                    </ul>;
-                  })}
-                </p>
-              </p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
             </tr>
             <hr />
 
@@ -68,6 +93,16 @@ class History extends Component {
                 {this.state.data.receive_amount}
                 ramesh
               </p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
+              <p>ramesh</p>
             </tr>
             <hr />
             <tr
