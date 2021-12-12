@@ -4,11 +4,20 @@ import MainPage from "./pages/MainPage";
 import LoginPage from "./pages/LoginPage";
 import registerServiceWorker from "./registerServiceWorker";
 import { BrowserRouter, Route } from "react-router-dom";
-import { Provider } from "react-redux";
-import store from "./redux/store";
 import "./index.css";
 import SignUpPage from "./pages/SignUpPage";
 import UpdatePage from "./pages/UpdatePage";
+import {composeWithDevTools} from "redux-devtools-extension";
+import {createStore, applyMiddleware} from "redux"; // createstore create redux store, applyMiddleware allows us to use thunk
+import {Provider} from 'react-redux';  //to connect react and redux // HOC where we wrap our application
+import rootReducer from './rootReducer';
+import thunk from 'redux-thunk';
+
+
+const store = createStore(  //createStore takes two args
+  rootReducer, // the whole tree
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
   <Provider store={store}>

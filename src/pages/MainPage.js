@@ -12,7 +12,7 @@ function MainPage(props) {
     <div>
       <div>
         <TopAppBar history={props.history} />
-        <LeftDrawer />
+        {/* <LeftDrawer /> */}
         <Route path="/main/pg2" component={Pg2} />
         <Route path="/main/pg3" component={Pg3} />
       </div>
