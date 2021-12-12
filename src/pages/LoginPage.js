@@ -3,30 +3,32 @@ import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Login from '../components/Login'
+import {login} from '../actions/auth';
+import {connect} from 'react-redux';
+import {Link} from "react-router-dom";
 
-const styleSheet = createStyleSheet(theme => ({
-  root: {
-    flexGrow: 1,
-    marginTop: 30,
+class LoginPage extends React.Component {
+
+  submit = data =>
+      this.props.login(data).then(() =>  this.props.history.push("/main")); // return promise // pass history for page component
+
+  render() {
+      return (
+          <div>
+              <h1>Login Page</h1>
+              <Login submit={this.submit}/>
+          </div>
+      )
   }
-}));
-
-function LoginPage(props) {
-  const classes = props.classes;
-  return (
-    <div className={classes.root}>
-      <Grid container gutter={24} justify="center">
-        <Grid item xs={6} >
-          <Login history={props.history} />
-        </Grid>
-      </Grid>
-    </div>
-  );
 }
 
+
 LoginPage.propTypes = {
-  classes: PropTypes.object.isRequired,
+  history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+  }).isRequired,
+  login: PropTypes.func.isRequired
 };
 
-export default withStyles(styleSheet)(LoginPage);
+export default connect(null, {login})(LoginPage);
 

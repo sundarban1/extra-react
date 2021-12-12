@@ -15,6 +15,9 @@ function MainPage(props) {
         <LeftDrawer />
         <Route path="/main/transactions" component={TransactionsPage} />
         <Route path="/main/history" component={HistoryPage} />
+        {/* <LeftDrawer /> */}
+        {/* <Route path="/main/pg2" component={Pg2} />
+        <Route path="/main/pg3" component={Pg3} /> */}
       </div>
       <div>
         <ProfilePage />

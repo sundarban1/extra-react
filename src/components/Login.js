@@ -63,21 +63,16 @@ class Login extends React.Component {
     } else if (this.state.pws == "") {
       this.setState({ passworderror: "password cannot be empty" });
     } else {
-      axios
-        .post("/api/auths/login", {
-          email: this.state.login,
-          password: this.state.pws,
-        })
-        .then((res) => {
-          localStorage.setItem("token", res.data.token);
-          this.props.setCurrentUser(this.state);
-          if (this.state.remember)
-            localStorage.setItem("userremember", JSON.stringify(this.state));
-          this.props.history.push("/main");
-        })
-        .catch((err) => {
-          this.setState({ error: err.response.data.message });
-        });
+
+      this.props.submit({
+        email: this.state.login,
+        password: this.state.pws,
+      })
+                  .catch(err=>
+                    {
+                      console.log(err)
+                    })
+
     }
   }
   componentDidMount() {
@@ -89,13 +84,13 @@ class Login extends React.Component {
   }
   render() {
     return (
-      <Paper className={this.props.classes.paper}>
+      <Paper className={'this.props.classes.paper'}>
         {this.state.error ? (
           <span style={{ color: "#ae5856" }}>{this.state.error}</span>
         ) : (
           ""
         )}
-        <div className={this.props.classes.flexGrow}>
+        <div className={'this.props.classes.flexGrow'}>
           <Grid container>
             <Grid item xs={12}>
               <TextField
@@ -145,7 +140,7 @@ class Login extends React.Component {
                   label="Remember Password"
                 />
               </Grid>
-              <Grid item xs={4} className={this.props.classes.button}>
+              <Grid item xs={4} className={'this.props.classes.button'}>
                 <Button
                   style={{
                     width: "100%",
@@ -189,27 +184,8 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
+  submit: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.user,
-  };
-};
-
-const mapDispachToProps = (dispatch) => {
-  return {
-    setCurrentUser: (currentUser) => {
-      dispatch({
-        type: "AddCurrentUser",
-        payload: currentUser,
-      });
-    },
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispachToProps
-)(withStyles(styleSheet)(Login));
+export default Login;
