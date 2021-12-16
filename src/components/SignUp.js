@@ -10,6 +10,7 @@ import axios from "axios";
 import isEmail from "validator/lib/isEmail";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
+// import { signup } from "../actions/users";
 
 const styleSheet = createStyleSheet((theme) => ({
   root: {
@@ -112,56 +113,8 @@ class SignUp extends React.Component {
           password: this.state.password,
         })
         .catch((err) => {
-          let statusCode = err.response.status;
-          if (statusCode === 400) {
-            this.setState({
-              error: err.response.data.details[0].message,
-              successfulsignup: "",
-            });
-          } else if (statusCode === 422) {
-            this.setState({
-              error: err.response.data.error,
-              successfulsignup: "",
-            });
-          }
+          console.log(err);
         });
-
-      // axios
-      //   .post("/api/users", {
-      //     first_name: this.state.firstname,
-      //     last_name: this.state.lastname,
-      //     phone: this.state.phone,
-      //     address: this.state.address,
-      //     dob: this.state.dob,
-      //     email: this.state.email,
-      //     password: this.state.password,
-      //   })
-      //   .then((res) => {
-      //     this.setState({
-      //       error: "",
-      //       successfulsignup:
-      //         "Your account is succesfully created, please check your email to varify your account",
-      //     });
-      //     // console.log(res);
-      //     // this.props.setCurrentUser(this.state);
-      //     // if (this.state.remember)
-      //     //   localStorage.setItem("userremember", JSON.stringify(this.state));
-      //     // this.props.history.push("/main");
-      //   })
-      //   .catch((err) => {
-      //     let statusCode = err.response.status;
-      //     if (statusCode === 400) {
-      //       this.setState({
-      //         error: err.response.data.details[0].message,
-      //         successfulsignup: "",
-      //       });
-      //     } else if (statusCode === 422) {
-      //       this.setState({
-      //         error: err.response.data.error,
-      //         successfulsignup: "",
-      //       });
-      //     }
-      //   });
     }
   }
 
@@ -174,7 +127,7 @@ class SignUp extends React.Component {
   }
   render() {
     return (
-      <Paper className={this.props.classes.paper}>
+      <Paper className={"r"}>
         {this.state.error ? (
           <span style={{ color: "#ae5856" }}>{this.state.error}</span>
         ) : (
@@ -186,7 +139,7 @@ class SignUp extends React.Component {
 
         <h1> SignUp</h1>
 
-        <div className={this.props.classes.flexGrow}>
+        <div className={"hel"}>
           <Grid container>
             <Grid item xs={12}>
               <h5 className="field__name">First Name</h5>
@@ -296,7 +249,7 @@ class SignUp extends React.Component {
             </div>
 
             <Grid container>
-              <Grid item xs={4} className={this.props.classes.button}>
+              <Grid item xs={4} className={"button"}>
                 <Button
                   style={{
                     width: "200%",
@@ -323,27 +276,11 @@ class SignUp extends React.Component {
 }
 
 SignUp.propTypes = {
-  classes: PropTypes.object.isRequired,
+  submit: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.user,
-  };
-};
+function mapStateToProps(state) {
+  return {};
+}
 
-const mapDispachToProps = (dispatch) => {
-  return {
-    setCurrentUser: (currentUser) => {
-      dispatch({
-        type: "AddCurrentUser",
-        payload: currentUser,
-      });
-    },
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispachToProps
-)(withStyles(styleSheet)(SignUp));
+export default connect(mapStateToProps)(SignUp);

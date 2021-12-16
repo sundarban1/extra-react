@@ -10,7 +10,17 @@ export default {
         })
         .then((res) => res.data),
     signup: (user) =>
-      axios.post("/api/users", { user }).then((res) => res.data),
+      axios
+        .post("/api/users", {
+          first_name: user.first_name,
+          last_name: user.last_name,
+          phone: user.phone,
+          address: user.address,
+          dob: user.dob,
+          email: user.email,
+          password: user.password,
+        })
+        .then((res) => res.data),
     confirm: (token) =>
       axios
         .post("/api/auth/confirmation", { token })
@@ -19,11 +29,5 @@ export default {
       axios.post("/api/auth/reset_password_request", { email }),
     validateToken: (token) => axios.post("/api/auth/validate_token", { token }),
     resetPassword: (data) => axios.post("/api/auth/reset_password", { data }),
-    getHistory: (data) =>
-      axios.get("/api/users/1/history", {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      }),
   },
 };

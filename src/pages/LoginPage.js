@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 // import { Link } from "react-router-dom";
 
 class LoginPage extends React.Component {
+  // arrow function
   submit = (data) =>
     this.props.login(data).then(() => this.props.history.push("/main")); // return promise // pass history for page component
 
