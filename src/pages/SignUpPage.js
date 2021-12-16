@@ -2,30 +2,30 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles, createStyleSheet } from "material-ui/styles";
 import Grid from "material-ui/Grid";
-import SignUp from "../components/SignUp";
+import Login from "../components/Login";
+import { signup } from "../actions/users";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-const styleSheet = createStyleSheet((theme) => ({
-  root: {
-    flexGrow: 1,
-    marginTop: 30,
-  },
-}));
+class SignUpPage extends React.Component {
+  submit = (data) =>
+    this.props.signup(data).then(() => this.props.history.push("/main")); // return promise // pass history for page component
 
-function SignUpPage(props) {
-  const classes = props.classes;
-  return (
-    <div className={classes.root}>
-      <Grid container gutter={24} justify="center">
-        <Grid item xs={6}>
-          <SignUp history={props.history} />
-        </Grid>
-      </Grid>
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <h1>SignUp Page</h1>
+        <Login submit={this.submit} />
+      </div>
+    );
+  }
 }
 
 SignUpPage.propTypes = {
-  classes: PropTypes.object.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  signup: PropTypes.func.isRequired,
 };
 
-export default withStyles(styleSheet)(SignUpPage);
+export default connect(null, { signup })(SignUpPage);

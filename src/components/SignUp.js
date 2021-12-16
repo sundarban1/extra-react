@@ -101,8 +101,8 @@ class SignUp extends React.Component {
     } else if (!isEmail(this.state.email)) {
       this.setState({ emailerror: "Email is not Valid" });
     } else {
-      axios
-        .post("/api/users", {
+      this.props
+        .submit({
           first_name: this.state.firstname,
           last_name: this.state.lastname,
           phone: this.state.phone,
@@ -110,18 +110,6 @@ class SignUp extends React.Component {
           dob: this.state.dob,
           email: this.state.email,
           password: this.state.password,
-        })
-        .then((res) => {
-          this.setState({
-            error: "",
-            successfulsignup:
-              "Your account is succesfully created, please check your email to varify your account",
-          });
-          // console.log(res);
-          // this.props.setCurrentUser(this.state);
-          // if (this.state.remember)
-          //   localStorage.setItem("userremember", JSON.stringify(this.state));
-          // this.props.history.push("/main");
         })
         .catch((err) => {
           let statusCode = err.response.status;
@@ -137,6 +125,43 @@ class SignUp extends React.Component {
             });
           }
         });
+
+      // axios
+      //   .post("/api/users", {
+      //     first_name: this.state.firstname,
+      //     last_name: this.state.lastname,
+      //     phone: this.state.phone,
+      //     address: this.state.address,
+      //     dob: this.state.dob,
+      //     email: this.state.email,
+      //     password: this.state.password,
+      //   })
+      //   .then((res) => {
+      //     this.setState({
+      //       error: "",
+      //       successfulsignup:
+      //         "Your account is succesfully created, please check your email to varify your account",
+      //     });
+      //     // console.log(res);
+      //     // this.props.setCurrentUser(this.state);
+      //     // if (this.state.remember)
+      //     //   localStorage.setItem("userremember", JSON.stringify(this.state));
+      //     // this.props.history.push("/main");
+      //   })
+      //   .catch((err) => {
+      //     let statusCode = err.response.status;
+      //     if (statusCode === 400) {
+      //       this.setState({
+      //         error: err.response.data.details[0].message,
+      //         successfulsignup: "",
+      //       });
+      //     } else if (statusCode === 422) {
+      //       this.setState({
+      //         error: err.response.data.error,
+      //         successfulsignup: "",
+      //       });
+      //     }
+      //   });
     }
   }
 

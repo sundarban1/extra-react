@@ -94,7 +94,6 @@ class Update extends React.Component {
           {
             first_name: this.state.firstname,
             last_name: this.state.lastname,
-            phone: this.state.phone,
             address: this.state.address,
             dob: this.state.dob,
             email: this.state.email,

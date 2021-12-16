@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles, createStyleSheet } from "material-ui/styles";
+import { createStyleSheet } from "material-ui/styles";
 import { Link } from "react-router-dom";
 import Paper from "material-ui/Paper";
 import Grid from "material-ui/Grid";
@@ -8,8 +8,6 @@ import TextField from "material-ui/TextField";
 import Button from "material-ui/Button";
 import Checkbox from "material-ui/Checkbox";
 import { FormControlLabel } from "material-ui/Form";
-import { connect } from "react-redux";
-import axios from "axios";
 import isEmail from "validator/lib/isEmail";
 
 import "react-day-picker/lib/style.css";
@@ -63,16 +61,14 @@ class Login extends React.Component {
     } else if (this.state.pws == "") {
       this.setState({ passworderror: "password cannot be empty" });
     } else {
-
-      this.props.submit({
-        email: this.state.login,
-        password: this.state.pws,
-      })
-                  .catch(err=>
-                    {
-                      console.log(err)
-                    })
-
+      this.props
+        .submit({
+          email: this.state.login,
+          password: this.state.pws,
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
   componentDidMount() {
@@ -84,13 +80,13 @@ class Login extends React.Component {
   }
   render() {
     return (
-      <Paper className={'this.props.classes.paper'}>
+      <Paper className={"this.props.classes.paper"}>
         {this.state.error ? (
           <span style={{ color: "#ae5856" }}>{this.state.error}</span>
         ) : (
           ""
         )}
-        <div className={'this.props.classes.flexGrow'}>
+        <div className={"this.props.classes.flexGrow"}>
           <Grid container>
             <Grid item xs={12}>
               <TextField
@@ -140,7 +136,7 @@ class Login extends React.Component {
                   label="Remember Password"
                 />
               </Grid>
-              <Grid item xs={4} className={'this.props.classes.button'}>
+              <Grid item xs={4} className={"this.props.classes.button"}>
                 <Button
                   style={{
                     width: "100%",

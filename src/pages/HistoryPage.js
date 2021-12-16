@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { withStyles, createStyleSheet } from "material-ui/styles";
 import Grid from "material-ui/Grid";
 import History from "../components/History";
+// import { Route } from "react-router";
+import { Link } from "@material-ui/core";
 
 const styleSheet = createStyleSheet((theme) => ({
   root: {
@@ -17,7 +19,11 @@ function HistoryPage(props) {
     <div className={classes.root}>
       <Grid container gutter={24} justify="center">
         <Grid item xs={6}>
-          <History history={props.history} />
+          <Link
+            path="/main/history"
+            history={props.history}
+            component={History}
+          />
         </Grid>
       </Grid>
     </div>
