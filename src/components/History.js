@@ -8,7 +8,7 @@ class History extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {},
+      data: [],
     };
   }
 
@@ -35,9 +35,36 @@ class History extends Component {
         <h1 style={{ textAlign: "center", width: "100%", marginLeft: "300px" }}>
           Transaction History
         </h1>
+        <table>
+          <tr>
+            <th style={{ marginRight: "90px" }}>id</th>
+            <th style={{ marginRight: "90px" }}>Sent Amount</th>
+            <th style={{ marginRight: "90px" }}>Receive Amount</th>
+            <th>Request Amount</th>
+            <th>Date</th>
+            <th>Sender ID</th>
+            <th>Receiver ID</th>
+            <th>Top up Amount</th>
+          </tr>
+
+          {this.state.data.map(function (value, key) {
+            return (
+              <tr key={key}>
+                <td>{value.id}</td>
+                <td>{value.sent_amount}</td>
+                <td>{value.receive_amount}</td>
+                <td>{value.request_amount}</td>
+                <td>{value.sender_id}</td>
+                <td>{value.receiver_id}</td>
+                <td>{value.user_id}</td>
+                <td>{value.topup_amount}</td>
+              </tr>
+            );
+          })}
+        </table>
 
         {/* <div key={this.state.item}>{this.state.data.map((item) => item)}</div> */}
-
+        {/*
         <table>
           <tr
             style={{
@@ -185,6 +212,7 @@ class History extends Component {
             </tr>
           </tr>
         </table>
+        */}
       </div>
     );
   }

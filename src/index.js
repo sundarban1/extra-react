@@ -36,7 +36,7 @@ ReactDOM.render(
         <Route path="/signup" component={SignUpPage} />
         <Route path="/update" component={UpdatePage} />
         <Route path="/main/transactions" component={TransactionsPage} />
-        <Route path="/main/history" component={HistoryPage} />
+        {/* <Route path="/main/history" component={HistoryPage} /> */}
       </div>
     </BrowserRouter>
   </Provider>,
