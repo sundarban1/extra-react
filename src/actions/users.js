@@ -7,15 +7,15 @@ export const signup = (data) => (dispatch) =>
     dispatch(userLoggedIn(user));
   });
 
-export const getUser = (data) => (dispatch) =>
+export const getUser = (data) => (dispatch) => {
   api.user.getUser(data).then((user) => {
     dispatch(getUserDetails(user));
   });
+};
 
 export const getHistory = (data) => (dispatch) => {
   alert("hello");
   api.user.getHistory(data).then((history) => {
-    console.log(history, "history");
     dispatch(getUserHistory(history));
   });
 };

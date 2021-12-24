@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getUser } from "../actions/users";
+import api from "../api";
+import axios from "axios";
 
 class Profile extends Component {
   constructor(props) {
@@ -14,13 +16,25 @@ class Profile extends Component {
 
   componentDidMount() {
     const user_id = localStorage.getItem("id");
-    this.props.getUser(user_id).then((res) => {
-      console.log(res, "ramesh");
-    });
-    // api.user.getUser().then((res) => {
+    // const data = { " user_id": user_id };
+    // this.props.submit(data).catch((err) => {
+    //   console.log(err);
+    // });
+
+    // api.user.getUser(user_id).then((res) => {
     //   console.log(res.data.data);
     //   this.setState({ data: res.data.data });
     // });
+
+    axios
+      .get("/api/users/" + user_id, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        this.setState({ data: res.data.data });
+      });
   }
 
   render() {
@@ -209,4 +223,4 @@ Profile.propTypes = {
   submit: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
-export default connect(null, { getUser })(Profile);
+export default Profile;

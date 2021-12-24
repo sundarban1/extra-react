@@ -19,12 +19,14 @@ class History extends Component {
     // });
     axios
 
-      .get("/api/users/" + id, {
+      .get("/api/users/" + id + "/history", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
-      .then((res) => res.data);
+      .then((res) => {
+        this.setState({ data: res.data.data });
+      });
   }
 
   render() {
