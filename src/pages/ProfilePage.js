@@ -1,16 +1,31 @@
-import React, { Component } from "react";
-// import axios from "axios";
+import React from "react";
+import PropTypes from "prop-types";
 import Profile from "../components/Profile";
-// import Grid from "material-ui/Grid";
-// import { DataGrid } from "@mui/x-data-grid";
+import { getUser } from "../actions/users";
+import { connect } from "react-redux";
 
-class ProfilePage extends Component {
+class ProfilePage extends React.Component {
+  // arrow function
+  submit = (data) =>
+    this.props.getUser(data).then(() => this.props.history.push("/main"));
+  // return promise
+  // pass history for page component
+
   render() {
     return (
       <div>
-        <Profile />
+        <h1>User Profile</h1>
+        <Profile submit={this.submit} />
       </div>
     );
   }
 }
-export default ProfilePage;
+
+ProfilePage.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  getUser: PropTypes.func.isRequired,
+};
+
+export default connect(null, { getUser })(ProfilePage);

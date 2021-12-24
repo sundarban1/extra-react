@@ -1,37 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles, createStyleSheet } from "material-ui/styles";
-import Grid from "material-ui/Grid";
 import History from "../components/History";
-// import { Route } from "react-router";
-import { Link } from "@material-ui/core";
+import { getHistory } from "../actions/users";
+import { connect } from "react-redux";
 
-const styleSheet = createStyleSheet((theme) => ({
-  root: {
-    flexGrow: 1,
-    marginTop: 30,
-  },
-}));
+class HistoryPage extends React.Component {
+  // arrow function
+  submit = (data) =>
+    this.props
+      .getHistory(data)
+      .then(() => this.props.history.push("/main/history"));
+  // return promise
+  // pass history for page component
 
-function HistoryPage(props) {
-  const classes = props.classes;
-  return (
-    <div className={classes.root}>
-      <Grid container gutter={24} justify="center">
-        <Grid item xs={6}>
-          <Link
-            path="/main/history"
-            history={props.history}
-            component={History}
-          />
-        </Grid>
-      </Grid>
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <h1>This will be the history page</h1>
+        <History submit={this.submit} />
+      </div>
+    );
+  }
 }
 
 HistoryPage.propTypes = {
-  classes: PropTypes.object.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  getHistory: PropTypes.func.isRequired,
 };
 
-export default withStyles(styleSheet)(HistoryPage);
+export default connect(null, { getHistory })(HistoryPage);

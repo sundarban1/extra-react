@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles, createStyleSheet } from "material-ui/styles";
-import Grid from "material-ui/Grid";
 import { signup } from "../actions/users";
 import { connect } from "react-redux";
 import SignUp from "../components/SignUp";

@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "material-ui/styles";
 import { connect } from "react-redux";
-import { styleSheet } from "material-ui/Paper/Paper";
-import api from "../api";
 import { Link } from "react-router-dom";
+import { getUser } from "../actions/users";
 
 class Profile extends Component {
   constructor(props) {
@@ -14,12 +12,16 @@ class Profile extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   api.user.getUser().then((res) => {
-  //     console.log(res.data.data);
-  //     this.setState({ data: res.data.data });
-  //   });
-  // }
+  componentDidMount() {
+    const user_id = localStorage.getItem("id");
+    this.props.getUser(user_id).then((res) => {
+      console.log(res, "ramesh");
+    });
+    // api.user.getUser().then((res) => {
+    //   console.log(res.data.data);
+    //   this.setState({ data: res.data.data });
+    // });
+  }
 
   render() {
     return (
@@ -204,27 +206,7 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
+  submit: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
-
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.user,
-  };
-};
-
-const mapDispachToProps = (dispatch) => {
-  return {
-    getCurrentUser: (currentUser) => {
-      dispatch({
-        type: "GetCurrentUser",
-        payload: currentUser,
-      });
-    },
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispachToProps
-)(withStyles(styleSheet)(Profile));
+export default connect(null, { getUser })(Profile);

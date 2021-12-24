@@ -6,11 +6,9 @@ import Grid from "material-ui/Grid";
 import TextField from "material-ui/TextField";
 import Button from "material-ui/Button";
 import { connect } from "react-redux";
-import axios from "axios";
 import isEmail from "validator/lib/isEmail";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
-// import { signup } from "../actions/users";
 
 const styleSheet = createStyleSheet((theme) => ({
   root: {

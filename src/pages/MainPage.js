@@ -13,6 +13,7 @@ function MainPage(props) {
       <div>
         <TopAppBar history={props.history} />
         <Route path="/main" component={ProfilePage} />
+        <Route path="/main/history" component={HistoryPage} />
 
         {/* <LeftDrawer /> */}
         {/* <Route path="/main/pg2" component={Pg2} />

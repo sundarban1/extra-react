@@ -1,9 +1,24 @@
-import { USER_LOGGED_IN, USER_LOGGED_OUT } from "../types";
+import {
+  USER_LOGGED_IN,
+  USER_LOGGED_OUT,
+  GET_USER,
+  GET_HISTORY,
+} from "../types";
 import api from "../api";
 
 export const userLoggedIn = (user) => ({
   type: USER_LOGGED_IN,
   user,
+});
+
+export const getUserDetails = (user) => ({
+  type: GET_USER,
+  user,
+});
+
+export const getUserHistory = (history) => ({
+  type: GET_HISTORY,
+  history,
 });
 
 export const userLoggedOut = () => ({
@@ -12,7 +27,8 @@ export const userLoggedOut = () => ({
 
 export const login = (credentials) => (dispatch) =>
   api.user.login(credentials).then((user) => {
-    // localStorage.bookwormJWT = user.token;
+    localStorage.token = user.token;
+    localStorage.id = user.id;
     dispatch(userLoggedIn(user));
   }); //thunk action --> api request with data and dispatch redux action
 

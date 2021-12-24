@@ -21,9 +21,9 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk))
 );
 
-// //WHEN USING REDUX WE NEED TO MAKE A FUNCTTION TO STORE ALL TEH DATAS. NOW CREATE A STORE WHICH WILL TAKE TWO ARGUMENTS.
+// //WHEN USING REDUX WE NEED TO MAKE A FUNCTTION TO STORE ALL THE DATAS. NOW CREATE A STORE WHICH WILL TAKE TWO ARGUMENTS.
 // // CONST store  = createStore(
-//   rootReducer, 
+//   rootReducer,
 //   composeWithDevTools(applyMiddleware(thunk))
 // )
 

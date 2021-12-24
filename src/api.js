@@ -9,6 +9,25 @@ export default {
           password: credentials.password,
         })
         .then((res) => res.data),
+
+    getUser: (id) => {
+      axios
+        .get("/api/users/" + id, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((res) => res.data);
+    },
+
+    getHistory: (id) => {
+      axios.get("/api/users/" + id + "/history", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    },
+
     signup: (user) =>
       axios
         .post("/api/users", {

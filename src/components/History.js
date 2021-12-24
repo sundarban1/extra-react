@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "material-ui/styles";
 import { connect } from "react-redux";
-import { styleSheet } from "material-ui/Paper/Paper";
-import api from "../api";
+import { getHistory } from "../actions/users";
+import axios from "axios";
 
 class History extends Component {
   constructor(props) {
@@ -11,14 +10,21 @@ class History extends Component {
     this.state = {
       data: {},
     };
-    // console.log(this.state.data, "ramesh");
   }
 
   componentDidMount() {
-    api.user.getHistory().then((res) => {
-      console.log(res.data.data);
-      this.setState({ data: res.data.data });
-    });
+    const id = localStorage.getItem("id");
+    // this.props.getHistory(user_id).then((res) => {
+    //   console.log(res, "ramesh");
+    // });
+    axios
+
+      .get("/api/users/" + id, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res) => res.data);
   }
 
   render() {
@@ -185,25 +191,4 @@ class History extends Component {
 History.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.user,
-  };
-};
-
-const mapDispachToProps = (dispatch) => {
-  return {
-    getCurrentUser: (currentUser) => {
-      dispatch({
-        type: "GetCurrentUser",
-        payload: currentUser,
-      });
-    },
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispachToProps
-)(withStyles(styleSheet)(History));
+export default connect(null, { getHistory })(History);
