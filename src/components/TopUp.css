@@ -1,0 +1,14 @@
+.topUp {
+  display: flex;
+  justify-content: center;
+  padding: "80px";
+  margin-top: 20px;
+  width: 100%;
+}
+.go__back {
+  margin-top: 20px;
+  margin-left: 50px;
+}
+.transfer__button {
+  width: 50%;
+}

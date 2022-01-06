@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getHistory } from "../actions/users";
 import axios from "axios";
+import "./History.css";
 
 class History extends Component {
   constructor(props) {
@@ -13,14 +14,13 @@ class History extends Component {
   }
 
   componentDidMount() {
+    //get the user id from the local storage for the user log in.
     const id = localStorage.getItem("id");
-    // this.props.getHistory(user_id).then((res) => {
-    //   console.log(res, "ramesh");
-    // });
+    //fetch the user history from the bankend for the logged in user.
     axios
-
       .get("/api/users/" + id + "/history", {
         headers: {
+          //Provided the token from the header.
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
@@ -31,188 +31,39 @@ class History extends Component {
 
   render() {
     return (
-      <div style={{ marginInline: "50px", padding: "5px" }}>
-        <h1 style={{ textAlign: "center", width: "100%", marginLeft: "300px" }}>
-          Transaction History
-        </h1>
-        <table>
+      <div className="history">
+        <h1 className="history__header">Transaction History</h1>
+        <table className="history__table">
           <tr>
-            <th style={{ marginRight: "90px" }}>id</th>
-            <th style={{ marginRight: "90px" }}>Sent Amount</th>
-            <th style={{ marginRight: "90px" }}>Receive Amount</th>
-            <th>Request Amount</th>
-            <th>Date</th>
-            <th>Sender ID</th>
-            <th>Receiver ID</th>
-            <th>Top up Amount</th>
+            <th className="history__row">ID</th>
+            <th className="history__row">Sent Amount</th>
+            <th className="history__row">Receive Amount</th>
+            <th className="history__row">Request Amount</th>
+            <th className="history__row">Date & Time</th>
+            <th className="history__row">Sender ID</th>
+            <th className="history__row">Receiver ID</th>
+            <th className="history__row">TopUp Amount</th>
           </tr>
 
           {this.state.data.map(function (value, key) {
             return (
               <tr key={key}>
-                <td>{value.id}</td>
-                <td>{value.sent_amount}</td>
-                <td>{value.receive_amount}</td>
-                <td>{value.request_amount}</td>
-                <td>{value.sender_id}</td>
-                <td>{value.receiver_id}</td>
-                <td>{value.user_id}</td>
-                <td>{value.topup_amount}</td>
+                <td className="row__data">{value.id}</td>
+                <td className="row__data" style={{ color: "red" }}>
+                  {value.sent_amount}
+                </td>
+                <td className="row__data" style={{ color: "green" }}>
+                  {value.receive_amount}
+                </td>
+                <td className="row__data">{value.request_amount}</td>
+                <td className="row__data">{value.created_at}</td>
+                <td className="row__data">{value.sender_id}</td>
+                <td className="row__data">{value.user_id}</td>
+                <td className="row__data">{value.topup_amount}</td>
               </tr>
             );
           })}
         </table>
-
-        {/* <div key={this.state.item}>{this.state.data.map((item) => item)}</div> */}
-        {/*
-        <table>
-          <tr
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              flexGrow: "2",
-              width: "200%",
-              margin: "0px",
-            }}
-          >
-            <tr
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                borderRight: "block",
-              }}
-            >
-              <th>Date </th>
-              <p>{Date().toLocaleString()}</p>
-              <p>{Date().toLocaleString()}</p>
-              <p>{Date().toLocaleString()}</p>
-              <p>{Date().toLocaleString()}</p>
-              <p>{Date().toLocaleString()}</p>
-              <p>{Date().toLocaleString()}</p>
-              <p>{Date().toLocaleString()}</p>
-              <p>{Date().toLocaleString()}</p>
-            </tr>
-            <hr />
-            <tr
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <th>Sent Amount </th>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-            </tr>
-            <hr />
-
-            <tr
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <th>Receive Amount: </th>
-              <p style={{ marginLeft: "25px" }}>
-                {this.state.data.receive_amount}
-                ramesh
-              </p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-              <p>ramesh</p>
-            </tr>
-            <hr />
-            <tr
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <th>Request Amount: </th>
-              <p style={{ marginLeft: "25px" }}>
-                {this.state.data.request_amount}
-                ramesh
-              </p>
-            </tr>
-            <hr />
-            <tr
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <th>Sender Id: </th>
-              <p style={{ marginLeft: "25px" }}>
-                {this.state.data.sender_id}
-                ramesh
-              </p>
-            </tr>
-            <hr />
-
-            <tr
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <th>Receiver Id: </th>
-              <p style={{ marginLeft: "25px" }}>
-                {this.state.data.receiver_id}
-                ramesh
-              </p>
-            </tr>
-            <hr />
-            <tr
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <th>User Id: </th>
-              <p style={{ marginLeft: "25px" }}>
-                {this.state.data.user_id}
-                ramesh
-              </p>
-            </tr>
-            <hr />
-            <tr
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <th>Top Up Amount: </th>
-              <p style={{ marginLeft: "25px" }}>
-                {this.state.data.topup_amount}
-                ramesh
-              </p>
-            </tr>
-          </tr>
-        </table>
-        */}
       </div>
     );
   }

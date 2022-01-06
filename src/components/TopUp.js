@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles, createStyleSheet } from "material-ui/styles";
 import { Link } from "react-router-dom";
 import Paper from "material-ui/Paper";
 import Grid from "material-ui/Grid";
@@ -9,36 +8,39 @@ import Button from "material-ui/Button";
 import { connect } from "react-redux";
 import axios from "axios";
 import "./Transactions.css";
-import "./History.css";
+import "./TopUp.css";
 
-class Transactions extends React.Component {
+class TopUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       bank_id: "",
-      amount: "",
+      balance: "",
       error: "",
       successful: "",
     };
     this.onBankIdChange = this.onBankIdChange.bind(this);
     this.onAmountChange = this.onAmountChange.bind(this);
-    this.onTransfer = this.onTransfer.bind(this);
+    this.onTopUp = this.onTopUp.bind(this);
   }
 
   onBankIdChange(event) {
     this.setState({ bank_id: event.target.value });
   }
   onAmountChange(event) {
-    this.setState({ amount: event.target.value });
+    this.setState({ balance: event.target.value });
   }
-  onTransfer() {
+  onTopUp() {
+    const id = localStorage.getItem("id");
+
     axios
       .post(
-        "/api/users/1/transaction/2",
+        "/api/users/" + id + "/topUp",
         {
           bank_id: this.state.bank_id,
-          amount: this.state.amount,
+          balance: this.state.balance,
         },
+
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -46,14 +48,14 @@ class Transactions extends React.Component {
         }
       )
       .then((res) => {
-        console.log(res);
+        console.log(res, "res");
         this.setState({ error: "" });
         this.setState({
-          successful: "Your balance is tranferred successfully.",
+          successful: "Top Up is successful.",
         });
-        // this.props.history.push("/notification");
       })
       .catch((err) => {
+        console.log("err", err);
         this.setState({ successful: "" });
         this.setState({ error: err.response.data.error });
       });
@@ -67,69 +69,61 @@ class Transactions extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="topUp">
         <Paper className="transactions">
           {this.state.error ? (
             <span style={{ color: "#ae5856" }}>{this.state.error}</span>
           ) : (
             <span style={{ color: "#ae5856" }}>{this.state.successful}</span>
           )}
-          <div>
-            <Grid container>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Bank ID"
-                  value={this.state.bank_id}
-                  onChange={this.onBankIdChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Amount"
-                  value={this.state.amount}
-                  onChange={this.onAmountChange}
-                />
-              </Grid>
 
-              <Grid container>
-                <Grid item xs={8}>
-                  <Button
-                    className="transfer__button"
-                    onClick={this.onTransfer}
-                    style={{
-                      backgroundColor: "blue",
-                      color: "white",
-                    }}
-                  >
-                    Transfer Amount
-                  </Button>
-                </Grid>
+          <Grid container>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Bank ID"
+                value={this.state.bank_id}
+                onChange={this.onBankIdChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Amount"
+                value={this.state.amount}
+                onChange={this.onAmountChange}
+              />
+            </Grid>
+
+            <Grid container>
+              <Grid item xs={8}>
+                <Button
+                  className="transfer__button"
+                  onClick={this.onTopUp}
+                  style={{
+                    backgroundColor: "blue",
+                    color: "white",
+                  }}
+                >
+                  Top UP
+                </Button>
               </Grid>
             </Grid>
-          </div>
-          <div>
             <Link to="/main">
-              <Button
-                className="back__button"
-                style={{
-                  color: "white",
-                  display: "block",
-                  backgroundColor: "green",
-                }}
-              >
-                Go Back to main Page
-              </Button>
+              <div className="go__back">
+                <Button style={{ backgroundColor: "green", width: "300%" }}>
+                  Go Back to main Page
+                </Button>
+              </div>
             </Link>
-          </div>
+          </Grid>
         </Paper>
       </div>
     );
   }
 }
 
-Transactions.propTypes = {
+TopUp.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
@@ -150,4 +144,4 @@ const mapDispachToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispachToProps)(Transactions);
+export default connect(mapStateToProps, mapDispachToProps)(TopUp);

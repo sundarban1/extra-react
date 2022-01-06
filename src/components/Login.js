@@ -80,101 +80,113 @@ class Login extends React.Component {
   }
   render() {
     return (
-      <Paper className={"this.props.classes.paper"}>
-        {this.state.error ? (
-          <span style={{ color: "#ae5856" }}>{this.state.error}</span>
-        ) : (
-          ""
-        )}
-        <div className={"this.props.classes.flexGrow"}>
-          <Grid container>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Email"
-                value={this.state.login}
-                onChange={this.onLoginChange}
-              />
-              {this.state.loginerror ? (
-                <span style={{ color: "#ae5856" }}>
-                  {this.state.loginerror}
-                </span>
-              ) : (
-                ""
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                type="password"
-                label="Password"
-                value={this.state.pws}
-                onChange={this.onPwsChange}
-              />
-              {this.state.passworderror ? (
-                <span style={{ color: "#ae5856" }}>
-                  {this.state.passworderror}
-                </span>
-              ) : (
-                ""
-              )}
-            </Grid>
-
-            <Grid item xs={12}>
-              {this.state.passworderror ? (
-                <span style={{ color: "#ae5856" }}>
-                  {this.state.passworderror}
-                </span>
-              ) : (
-                ""
-              )}
-            </Grid>
+      <div style={{ padding: "20px" }}>
+        <Paper className={"this.props.classes.paper"}>
+          {this.state.error ? (
+            <span style={{ color: "#ae5856" }}>{this.state.error}</span>
+          ) : (
+            ""
+          )}
+          <div
+            className={"this.props.classes.flexGrow"}
+            style={{
+              padding: "20px",
+            }}
+          >
             <Grid container>
-              <Grid item xs={8}>
-                <FormControlLabel
-                  control={<Checkbox onChange={this.onRemember} />}
-                  label="Remember Password"
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  value={this.state.login}
+                  onChange={this.onLoginChange}
                 />
+                {this.state.loginerror ? (
+                  <span style={{ color: "#ae5856" }}>
+                    {this.state.loginerror}
+                  </span>
+                ) : (
+                  ""
+                )}
               </Grid>
-              <Grid item xs={4} className={"this.props.classes.button"}>
-                <Button
+              <Grid item xs={12}>
+                <TextField
                   style={{
-                    width: "100%",
-                    marginLeft: "-280px",
-                    marginTop: "50px",
-                    padding: "10px",
-                    color: "white",
-                    display: "block",
-                    backgroundColor: "blue",
+                    marginRight: "15px",
                   }}
-                  raised
-                  color="primary"
-                  onClick={this.onLogin}
-                >
-                  Login
-                </Button>
+                  fullWidth
+                  type="password"
+                  label="Password"
+                  value={this.state.pws}
+                  onChange={this.onPwsChange}
+                />
+                {this.state.passworderror ? (
+                  <span style={{ color: "#ae5856" }}>
+                    {this.state.passworderror}
+                  </span>
+                ) : (
+                  ""
+                )}
+              </Grid>
+
+              <Grid item xs={12}>
+                {this.state.passworderror ? (
+                  <span style={{ color: "#ae5856" }}>
+                    {this.state.passworderror}
+                  </span>
+                ) : (
+                  ""
+                )}
+              </Grid>
+              <Grid container>
+                <Grid item xs={8}>
+                  <FormControlLabel
+                    control={<Checkbox onChange={this.onRemember} />}
+                    label="Remember Password"
+                  />
+                </Grid>
+                <Grid item xs={4} className={"this.props.classes.button"}>
+                  <Button
+                    style={{
+                      width: "100%",
+                      marginLeft: "-450px",
+                      marginTop: "50px",
+                      padding: "10px",
+                      color: "white",
+                      display: "block",
+                      backgroundColor: "blue",
+                    }}
+                    raised
+                    color="primary"
+                    onClick={this.onLogin}
+                  >
+                    Login
+                  </Button>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </div>
-        <div>
-          <Link to="/signup">
-            <Button
-              style={{
-                width: "70%",
-                marginLeft: "80px",
-                marginTop: "50px",
-                padding: "10px",
-                color: "white",
-                display: "block",
-                backgroundColor: "green",
-              }}
-            >
-              Create new Account
-            </Button>
-          </Link>
-        </div>
-      </Paper>
+          </div>
+          <div style={{ padding: "20px" }}>
+            <Link to="/signup">
+              <Button
+                style={{
+                  display: "flex",
+                  width: "70%",
+                  marginLeft: "200px",
+                  marginTop: "50px",
+
+                  padding: "10px",
+                  color: "white",
+                  display: "block",
+                  backgroundColor: "green",
+                }}
+              >
+                Create new Account
+              </Button>
+            </Link>
+          </div>
+        </Paper>
+      </div>
     );
   }
 }

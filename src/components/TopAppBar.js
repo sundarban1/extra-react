@@ -9,6 +9,7 @@ import IconButton from "material-ui/IconButton";
 import MenuIcon from "material-ui-icons/Menu";
 import Menu, { MenuItem } from "material-ui/Menu";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 const styleSheet = createStyleSheet({
   root: {
@@ -36,6 +37,9 @@ class TopAppBar extends React.Component {
     this.props.removeCurrentUser();
     this.props.history.push("/");
   }
+  handleRequest() {
+    this.props.history.push("/request");
+  }
   handleTopMenu = (event) => {
     this.setState({ userMenuopen: true, anchorEl: event.currentTarget });
   };
@@ -50,13 +54,6 @@ class TopAppBar extends React.Component {
       <div className={this.props.classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              color="contrast"
-              aria-label="Menu"
-              onClick={this.handleToggleLeftDawerMenu}
-            >
-              <MenuIcon />
-            </IconButton>
             <Typography
               type="title"
               color="inherit"
@@ -70,7 +67,14 @@ class TopAppBar extends React.Component {
               aria-haspopup="true"
               onClick={this.handleTopMenu}
             >
-              olá, {this.props.currentUser.login}
+              <IconButton
+                color="contrast"
+                aria-label="Menu"
+                onClick={this.handleToggleLeftDawerMenu}
+              >
+                <MenuIcon />
+              </IconButton>
+              {this.props.currentUser.login}
             </Button>
             <Menu
               id="simple-menu"
@@ -78,8 +82,25 @@ class TopAppBar extends React.Component {
               open={this.state.userMenuopen}
               onRequestClose={this.handleRequestClose}
             >
-              <MenuItem onClick={this.handleRequestClose}>Profile</MenuItem>
-              <MenuItem onClick={this.handleRequestClose}>My account</MenuItem>
+              <Link to="history">
+                <MenuItem onClick={this.handleRequestClose}>History</MenuItem>
+              </Link>
+              <Link to="transactions">
+                <MenuItem onClick={this.handleRequestClose}>
+                  Send Money
+                </MenuItem>
+              </Link>
+              <Link to="request">
+                <MenuItem onClick={this.handleRequestClose}>
+                  Request Money
+                </MenuItem>
+              </Link>
+              <Link to="update">
+                <MenuItem onClick={this.handleRequestClose}>
+                  Update Your Profile
+                </MenuItem>
+              </Link>
+
               <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
             </Menu>
           </Toolbar>

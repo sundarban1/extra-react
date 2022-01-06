@@ -14,7 +14,7 @@ class ProfilePage extends React.Component {
   render() {
     return (
       <div>
-        <h1>User Profile</h1>
+        <h1 style={{ marginLeft: "15px" }}>User Profile</h1>
         <Profile submit={this.submit} />
       </div>
     );

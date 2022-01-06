@@ -16,16 +16,7 @@ class Profile extends Component {
 
   componentDidMount() {
     const user_id = localStorage.getItem("id");
-    // const data = { " user_id": user_id };
-    // this.props.submit(data).catch((err) => {
-    //   console.log(err);
-    // });
-
-    // api.user.getUser(user_id).then((res) => {
-    //   console.log(res.data.data);
-    //   this.setState({ data: res.data.data });
-    // });
-
+    
     axios
       .get("/api/users/" + user_id, {
         headers: {
@@ -40,9 +31,10 @@ class Profile extends Component {
   render() {
     return (
       <div style={{ marginInline: "50px", padding: "5px" }}>
-        <table>
+        <table style={{ display: "flex", marginLeft: "15px" }}>
           <tr
             style={{
+              marginLeft: "15px",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",

@@ -4,6 +4,7 @@ import { getUserDetails, userLoggedIn, getUserHistory } from "./auth";
 export const signup = (data) => (dispatch) =>
   api.user.signup(data).then((user) => {
     localStorage.bookwormJWT = user.token;
+    localStorage.id = user.id;
     dispatch(userLoggedIn(user));
   });
 
