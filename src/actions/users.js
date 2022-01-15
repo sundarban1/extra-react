@@ -11,21 +11,21 @@ export const signup = (data) => (dispatch) =>
 
   export const getUser = () => {
     return (dispatch) => {
-        axios.get("/api/users/1",{
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
-        .then(response => {
-            console.log(response);
-            dispatch({
-                type: 'GET_USER',
-                payload: response.data
-            })
-        })
-        .catch(error => {
-            console.log(error);
-        });
+      axios.get("/api/users/" + localStorage.getItem("id"),{
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then(response => {
+          console.log(response);
+          dispatch({
+              type: 'GET_USER',
+              payload: response.data
+          })
+      })
+      .catch(error => {
+          console.log(error);
+      });
     }
 }
 
