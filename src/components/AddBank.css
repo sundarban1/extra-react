@@ -1,0 +1,28 @@
+.addBank {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: yellow 1px solid;
+  margin-left: 40px;
+  margin-top: 20px;
+  margin-right: 40px;
+}
+.text {
+  margin: 10px;
+}
+.button {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background-color: greenyellow;
+  height: 15px;
+
+  text-align: center;
+  margin-bottom: 20px;
+  width: 50%;
+}
+.addBank__header {
+  color: indigo;
+  border-bottom: rgb(22, 21, 9) 1px solid;
+}

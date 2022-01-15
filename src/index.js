@@ -14,6 +14,10 @@ import rootReducer from "./rootReducer";
 import thunk from "redux-thunk";
 import HistoryPage from "./pages/HistoryPage";
 import TransactionsPage from "./pages/TransactionsPage";
+import TopUpPage from "./pages/TopUpPage";
+import Request from "./components/Request";
+import HandleRequest from "./components/HandleRequest";
+import AddBank from "./components/AddBank";
 
 const store = createStore(
   //createStore takes two args
@@ -35,8 +39,12 @@ ReactDOM.render(
         <Route path="/main" component={MainPage} />
         <Route path="/signup" component={SignUpPage} />
         <Route path="/update" component={UpdatePage} />
-        <Route path="/main/transactions" component={TransactionsPage} />
-        {/* <Route path="/main/history" component={HistoryPage} /> */}
+        <Route path="/transactions" component={TransactionsPage} />
+        <Route path="/history" component={HistoryPage} />
+        <Route path="/topUP" component={TopUpPage}></Route>
+        <Route path="/request" component={Request}></Route>
+        <Route path="/handleRequest" component={HandleRequest}></Route>
+        <Route path="/addBank" component={AddBank}></Route>
       </div>
     </BrowserRouter>
   </Provider>,

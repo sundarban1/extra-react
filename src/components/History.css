@@ -1,0 +1,23 @@
+.history {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+}
+.history__header {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.history__table {
+  border-collapse: collapse;
+}
+.history__row {
+  padding: 5px;
+  border: 2px solid black;
+}
+.row__data {
+  border: 1px solid black;
+  text-align: center;
+}
