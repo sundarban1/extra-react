@@ -17,7 +17,6 @@ export const signup = (data) => (dispatch) =>
         },
       })
       .then(response => {
-          console.log(response);
           dispatch({
               type: 'GET_USER',
               payload: response.data
@@ -30,7 +29,6 @@ export const signup = (data) => (dispatch) =>
 }
 
 export const getHistory = (data) => (dispatch) => {
-  alert("hello");
   api.user.getHistory(data).then((history) => {
     dispatch(getUserHistory(history));
   });
