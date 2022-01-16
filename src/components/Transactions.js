@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles, createStyleSheet } from "material-ui/styles";
+// import { withStyles, createStyleSheet } from "material-ui/styles";
 import { Link } from "react-router-dom";
 import Paper from "material-ui/Paper";
 import Grid from "material-ui/Grid";
@@ -10,33 +10,41 @@ import { connect } from "react-redux";
 import axios from "axios";
 import "./Transactions.css";
 import "./History.css";
+import { FormControl, InputLabel, Select } from "@material-ui/core";
+import { MenuItem } from "material-ui";
 
 class Transactions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bank_id: "",
+      rid: "",
       amount: "",
       error: "",
       successful: "",
+      users: [],
+      receiverId: "",
     };
-    this.onBankIdChange = this.onBankIdChange.bind(this);
+
     this.onAmountChange = this.onAmountChange.bind(this);
     this.onTransfer = this.onTransfer.bind(this);
+    this.setReceiverID = this.setReceiverID.bind(this);
   }
 
-  onBankIdChange(event) {
-    this.setState({ bank_id: event.target.value });
-  }
   onAmountChange(event) {
     this.setState({ amount: event.target.value });
   }
+  setReceiverID(e) {
+    e.preventDefault();
+    this.setState({ receiverId: e.target.value });
+  }
+
   onTransfer() {
+    const id = localStorage.getItem("id");
     axios
       .post(
-        "/api/users/1/transaction/2",
+        "/api/users/" + id + "/transaction/" + this.state.receiverId,
+
         {
-          bank_id: this.state.bank_id,
           amount: this.state.amount,
         },
         {
@@ -46,12 +54,10 @@ class Transactions extends React.Component {
         }
       )
       .then((res) => {
-        console.log(res);
         this.setState({ error: "" });
         this.setState({
-          successful: "Your balance is tranferred successfully.",
+          successful: "Your balance is transferred successfully.",
         });
-        // this.props.history.push("/notification");
       })
       .catch((err) => {
         this.setState({ successful: "" });
@@ -59,11 +65,9 @@ class Transactions extends React.Component {
       });
   }
   componentDidMount() {
-    let userRemembered = JSON.parse(localStorage.getItem("userremember"));
-    if (userRemembered) {
-      this.props.setCurrentUser(userRemembered);
-      this.props.history.push("/main");
-    }
+    axios.get("/api/users").then((res) => {
+      this.setState({ users: res.data.data });
+    });
   }
   render() {
     return (
@@ -74,38 +78,52 @@ class Transactions extends React.Component {
           ) : (
             <span style={{ color: "#ae5856" }}>{this.state.successful}</span>
           )}
-          <div>
-            <Grid container>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Bank ID"
-                  value={this.state.bank_id}
-                  onChange={this.onBankIdChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Amount"
-                  value={this.state.amount}
-                  onChange={this.onAmountChange}
-                />
-              </Grid>
 
-              <Grid container>
-                <Grid item xs={8}>
-                  <Button
-                    className="transfer__button"
-                    onClick={this.onTransfer}
-                    style={{
-                      backgroundColor: "blue",
-                      color: "white",
-                    }}
-                  >
-                    Transfer Amount
-                  </Button>
-                </Grid>
+          <div>
+            <FormControl fullWidth>
+              <InputLabel style={{ display: "flex", color: "red" }}>
+                Name
+              </InputLabel>
+
+              <Select
+                className="menu__item"
+                label="Phone"
+                onClick={this.setReceiverID}
+              >
+                {this.state.users.map((value, key) => {
+                  return (
+                    <MenuItem value={value.id} style={{ display: "flex " }}>
+                      <p style={{ marginRight: "4px" }}>{value.first_name}</p>
+                      <p style={{ marginRight: "7px" }}>{value.last_name}</p>(
+                      <p>{value.phone}</p>)
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </div>
+          <div>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Amount"
+                value={this.state.amount}
+                onChange={this.onAmountChange}
+              />
+            </Grid>
+
+            <Grid container>
+              <Grid item xs={8}>
+                <Button
+                  className="transfer__button"
+                  onClick={this.onTransfer}
+                  style={{
+                    backgroundColor: "blue",
+                    color: "white",
+                  }}
+                >
+                  Transfer Amount
+                </Button>
               </Grid>
             </Grid>
           </div>

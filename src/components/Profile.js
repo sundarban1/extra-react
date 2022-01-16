@@ -16,7 +16,6 @@ class Profile extends Component {
 
   componentDidMount() {
     const user_id = localStorage.getItem("id");
-    
     axios
       .get("/api/users/" + user_id, {
         headers: {

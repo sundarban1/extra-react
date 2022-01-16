@@ -16,8 +16,8 @@ import HistoryPage from "./pages/HistoryPage";
 import TransactionsPage from "./pages/TransactionsPage";
 import TopUpPage from "./pages/TopUpPage";
 import Request from "./components/Request";
-import HandleRequest from "./components/HandleRequest";
 import AddBank from "./components/AddBank";
+import HandleRequestPage from "./pages/HandleRequestPage";
 
 const store = createStore(
   //createStore takes two args
@@ -43,7 +43,7 @@ ReactDOM.render(
         <Route path="/history" component={HistoryPage} />
         <Route path="/topUP" component={TopUpPage}></Route>
         <Route path="/request" component={Request}></Route>
-        <Route path="/handleRequest" component={HandleRequest}></Route>
+        <Route path="/handleRequest" component={HandleRequestPage}></Route>
         <Route path="/addBank" component={AddBank}></Route>
       </div>
     </BrowserRouter>
