@@ -9,24 +9,45 @@ export const signup = (data) => (dispatch) =>
     dispatch(userLoggedIn(user));
   });
 
-  export const getUser = () => {
-    return (dispatch) => {
-      axios.get("/api/users/" + localStorage.getItem("id"),{
+export const getAllUsers = () => {
+  return (dispatch) => {
+    axios
+      .get("/api/users/", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
-      .then(response => {
-          dispatch({
-              type: 'GET_USER',
-              payload: response.data
-          })
+      .then((response) => {
+        dispatch({
+          type: "GET_ALL_USER",
+          payload: response.data,
+        });
       })
-      .catch(error => {
-          console.log(error);
+      .catch((error) => {
+        console.log(error);
       });
-    }
-}
+  };
+};
+
+export const getUser = () => {
+  return (dispatch) => {
+    axios
+      .get("/api/users/" + localStorage.getItem("id"), {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: "GET_USER",
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
 
 export const getHistory = (data) => (dispatch) => {
   api.user.getHistory(data).then((history) => {
